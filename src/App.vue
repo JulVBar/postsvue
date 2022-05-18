@@ -1,30 +1,46 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+    <div class="app">
+        <post-form/>
+        <post-list/>
+    </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import PostForm from './components/PostForm';
+import PostList from '@/components/PostList';
 
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+export default {
+    components: {
+        PostForm, PostList
+    },
+    data() {
+        return {
+            posts: [
+                {id: 1, title: 'title 1', body: 'description 1'},
+                {id: 2, title: 'title 2', body: 'description 2'},
+                {id: 3, title: 'title 3', body: 'description 3'},
+            ],
+            title: '',
+            body: ''
+        }
+    },
+    methods: {
+        createPost () {
+            const newPost = {
+                id: Date.now(),
+                title: this.title,
+                body: this.body,
+            }
+            this.posts.push(newPost);
+        }
     }
-  }
 }
+</script>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 </style>
